@@ -1,7 +1,8 @@
 {
-  "name": "Wego",
+  "name": "Wego_backend",
   "version": "1.0.0",
   "description": "",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -16,9 +17,15 @@
     "url": "https://github.com/Hokori23/Wego/issues"
   },
   "homepage": "https://github.com/Hokori23/Wego#readme",
+  "devDependencies": {},
   "dependencies": {
     "@commitlint/cli": "^9.1.2",
-    "@commitlint/config-conventional": "^9.1.2"
+    "@commitlint/config-conventional": "^9.1.2",
+    "express": "^4.17.1",
+    "husky": "^4.2.5",
+    "moment": "^2.27.0",
+    "mysql2": "^2.1.0",
+    "nodemailer": "^6.4.11"
   },
   "husky": {
     "hooks": {
