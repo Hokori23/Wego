@@ -17,7 +17,6 @@
     "url": "https://github.com/Hokori23/Wego/issues"
   },
   "homepage": "https://github.com/Hokori23/Wego#readme",
-  "devDependencies": {},
   "dependencies": {
     "@commitlint/cli": "^9.1.2",
     "@commitlint/config-conventional": "^9.1.2",
