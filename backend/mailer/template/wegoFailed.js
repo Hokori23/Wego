@@ -1,10 +1,15 @@
-
+const isUndef = (v) => {
+	return v === undefined || v === null;
+};
 const sad = require("../../static/sadBase64");
 
 /**
  * @description 传入一个含有title: string(用于标题), name: string(申请人名字)
  */
 module.exports = ({ title = "", name = "" }) => {
+	if (isUndef(title) || isUndef(name)) {
+		throw new ReferenceError();
+	}
 	let html = `
     <!DOCTYPE html>
     <html lang="zh">

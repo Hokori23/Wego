@@ -2,12 +2,17 @@ const moment = require("moment");
 const isDef = (v) => {
 	return v !== undefined && v !== null;
 };
-
+const isUndef = (v) => {
+	return v === undefined || v === null;
+};
 /**
  * 字段转中文
  * @param { object } obj
  */
 const translateKeys = (obj) => {
+	if (isUndef(obj)) {
+		throw new ReferenceError();
+	}
 	const dictionary = {
 		name: "姓名",
 		school: "学院",
@@ -22,16 +27,16 @@ const translateKeys = (obj) => {
 	Object.keys(dictionary).map((key) => {
 		obj[dictionary[key]] = obj[key];
 		delete obj[key];
-    });
+	});
 
-    // 删除多余字段
-    delete obj.status
+	// 删除多余字段
+	delete obj.status;
 };
 
 /**
  * @description 传入一个含有title: string(用于标题), info: Array(用于遍历出申请人信息), detailURL: string(用于查看详情的URL)
  */
-module.exports = ({ title = "", info = {}, detailURL = "#" }) => {
+module.exports = ({ title = "", info = {}, detailURL }) => {
 	let html = `
     <!DOCTYPE html>
     <html lang="zh">
@@ -159,8 +164,7 @@ module.exports = ({ title = "", info = {}, detailURL = "#" }) => {
                             margin-bottom: 0;
                         }
                 
-                        .mail__block li span {
-                            font-weight: bold;
+                        .mail__block li b {
                             margin-right: 5px;
                         }
                     </style>
@@ -174,14 +178,15 @@ module.exports = ({ title = "", info = {}, detailURL = "#" }) => {
 	Object.keys(info).map((key) => {
 		const value = isDef(info[key]) ? info[key] : "";
 		html += `
-                                    <li><span>${key}: </span>${value}</li>`;
+                                    <li><b>${key}: </b>${value}</li>`;
 	});
 	html += `
                                 </ul>
                             </article>
                             <footer class="mail__footer">
     `;
-	if (detailURL) {
+	if (isDef(detailURL)) {
+		console.log("detailURL", detailURL);
 		html += `
                                 <a href="${detailURL}">点击此处查看申请信息列表</a>`;
 	}
