@@ -1,5 +1,5 @@
 const DB = require("../database");
-module.export = () => {
+module.exports = () => {
 	return new Promise(async (resolve, reject) => {
 		const sql = `
             SELECT * FROM application

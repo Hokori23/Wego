@@ -21,11 +21,12 @@ module.exports = ({
 			qq,
 			bio,
 			site,
-			time
+			time,
+			0
 		];
 		const sql = `
             INSERT INTO application
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `;
 		const db = await DB();
 		db.query(sql, params, (err, res) => {
@@ -41,7 +42,8 @@ module.exports = ({
 				qq,
 				bio,
 				site,
-				time
+				time,
+				status: 0
 			});
 		});
 	});

@@ -28,7 +28,7 @@ app.use(setHeaders);
 /**
  * 获取学院专业信息
  */
-app.get("/wego/get_schoollist", (req, res) => {
+app.get("/wego/get-schoollist", (req, res) => {
 	try {
 		const data = JSON.parse(fs.readFileSync("./public/schoollist.json"));
 		res.status(200).json(data);
@@ -91,6 +91,7 @@ app.post("/wego/apply", async (req, res) => {
 			message: "提交成功"
 		});
 	} catch (e) {
+		console.log(e)
 		res.status(500).json(e);
 	}
 });
