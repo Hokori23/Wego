@@ -15,7 +15,6 @@ const MAILER_OPTIONS = {
 	subject: "Wego社团申请邮件",
 	auth: {
 		user: "hokori23@qq.com",
-		pass: "password"
 	},
 	from: {
 		name: "无情小尘埃_Hokori",
