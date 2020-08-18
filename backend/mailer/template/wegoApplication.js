@@ -21,8 +21,7 @@ const translateKeys = (obj) => {
 		email: "E-mail",
 		qq: "QQ",
 		bio: "简介",
-		site: "个人网站",
-		time: "提交时间"
+		site: "个人网站"
 	};
 	Object.keys(dictionary).map((key) => {
 		obj[dictionary[key]] = obj[key];
@@ -31,6 +30,7 @@ const translateKeys = (obj) => {
 
 	// 删除多余字段
 	delete obj.status;
+	delete obj.time;
 };
 
 /**
@@ -50,38 +50,39 @@ module.exports = ({ title = "", info = {}, detailURL }) => {
                 <tr>
                     <style>
                         a {
-                            position: relative;
-                            display: inline-block;
-                            overflow: hidden;
+                            position: relative !important;
+                            display: inline-block !important;
+                            overflow: hidden !important;
                             text-decoration: none !important;
-                            vertical-align: top;
-                            outline: 0;
-                            background-color: transparent;
-                            margin: 0 3px;
+                            vertical-align: top !important;
+                            outline: 0 !important;
+                            background-color: transparent !important;
+                            margin: 0 3px !important;
                             color: inherit !important;
                             font-weight: inherit !important;
+                            line-height: initial !important;
                         }
                 
                         a:before {
-                            position: absolute;
-                            top: auto;
-                            bottom: 0px;
-                            left: 0;
-                            width: 100%;
-                            height: 1px;
-                            content: ' ';
+                            position: absolute !important;
+                            top: auto !important;
+                            bottom: 0px !important;
+                            left: 0 !important;
+                            width: 100% !important;
+                            height: 1px !important;
+                            content: '' !important;
                             background-color: inherit !important;
-                            -webkit-transition: all .2s;
-                            transition: all .2s;
-                            -webkit-transform: scaleX(0);
-                            transform: scaleX(0);
-                            -webkit-backface-visibility: hidden;
-                            backface-visibility: hidden;
+                            -webkit-transition: all .2s !important;
+                            transition: all .2s !important;
+                            -webkit-transform: scaleX(0) !important;
+                            transform: scaleX(0) !important;
+                            -webkit-backface-visibility: hidden !important;
+                            backface-visibility: hidden !important;
                         }
                 
                         a:hover:before {
-                            -webkit-transform: scaleX(1);
-                            transform: scaleX(1);
+                            -webkit-transform: scaleX(1) !important;
+                            transform: scaleX(1) !important;
                         }
                 
                         .mail__container {
@@ -123,25 +124,25 @@ module.exports = ({ title = "", info = {}, detailURL }) => {
                         .mail__footer {
                             display: flex;
                             flex-direction: column;
-                            align-items: flex-end;
+                            align-items: center;
                             font-weight: normal;
                         }
                 
                         .mail__footer span {
                             font-size: 12px;
-                            margin-top: 10px;
                             font-weight: normal;
+                            align-self: flex-end;
                         }
                 
                         .mail__footer a {
-                            font-size:15px;
-                            color: #FFFFFF;
-                            font-weight: bold;
+                            font-size:15px !important;
+                            color: #FFFFFF !important;
+                            font-weight: bold !important;
                         }
                 
                         .mail__footer a:before {
-                            background-color: #FFFFFF;
-                            color: #FFFFFF;
+                            background-color: #FFFFFF !important;
+                            color: #FFFFFF !important;
                         }
                 
                 
@@ -192,6 +193,7 @@ module.exports = ({ title = "", info = {}, detailURL }) => {
 	}
 	html += `
                                 <span>此信息由系统发送，请勿回复</span>
+                                <span>${moment().format('lll')}</span>
                             </footer>
                         </div>
                     </td>

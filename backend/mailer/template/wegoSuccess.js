@@ -1,3 +1,4 @@
+const moment = require('moment')
 const isUndef = (v) => {
 	return v === undefined || v === null;
 };
@@ -23,36 +24,36 @@ module.exports = ({ title = "", name = "" }) => {
                 <tr>
                     <style>
                         a {
-                            position: relative;
-                            display: inline-block;
-                            overflow: hidden;
+                            position: relative !important;
+                            display: inline-block !important;
+                            overflow: hidden !important;
                             text-decoration: none !important;
-                            vertical-align: top;
-                            outline: 0;
-                            background-color: transparent;
-                            margin: 0 3px;
+                            vertical-align: top !important;
+                            outline: 0 !important;
+                            background-color: transparent !important;
+                            margin: 0 3px !important;
                         }
                 
                         a:before {
-                            position: absolute;
-                            top: auto;
-                            bottom: 0px;
-                            left: 0;
-                            width: 100%;
-                            height: 1px;
-                            content: ' ';
-                            background-color: #536dfe;
-                            -webkit-transition: all .2s;
-                            transition: all .2s;
-                            -webkit-transform: scaleX(0);
-                            transform: scaleX(0);
-                            -webkit-backface-visibility: hidden;
-                            backface-visibility: hidden;
+                            position: absolute !important;
+                            top: auto !important;
+                            bottom: 0px !important;
+                            left: 0 !important;
+                            width: 100% !important;
+                            height: 1px !important;
+                            content: ' ' !important;
+                            background-color: #536dfe !important;
+                            -webkit-transition: all .2s !important;
+                            transition: all .2s !important;
+                            -webkit-transform: scaleX(0) !important;
+                            transform: scaleX(0) !important;
+                            -webkit-backface-visibility: hidden !important;
+                            backface-visibility: hidden !important;
                         }
                 
                         a:hover:before {
-                            -webkit-transform: scaleX(1);
-                            transform: scaleX(1);
+                            -webkit-transform: scaleX(1) !important;
+                            transform: scaleX(1) !important;
                         }
                 
                         .mail__container {
@@ -106,25 +107,25 @@ module.exports = ({ title = "", name = "" }) => {
                         .mail__footer {
                             display: flex;
                             flex-direction: column;
-                            align-items: flex-end;
+                            align-items: center;
                             font-weight: normal;
                         }
                 
                         .mail__footer span {
                             font-size: 12px;
-                            margin-top: 10px;
                             font-weight: normal;
+                            align-self: flex-end;
                         }
                 
                         .mail__footer a {
-                            font-size:15px;
-                            color: #FFFFFF;
-                            font-weight: bold;
+                            font-size:15px !important;
+                            color: #FFFFFF !important;
+                            font-weight: bold !important;
                         }
                 
                         .mail__footer a:before {
-                            background-color: #FFFFFF;
-                            color: #FFFFFF;
+                            background-color: #FFFFFF !important;
+                            color: #FFFFFF !important;
                         }
                 
                 
@@ -159,6 +160,7 @@ module.exports = ({ title = "", name = "" }) => {
                             </article>
                             <footer class="mail__footer">
                                 <span>此信息由系统发送，请勿回复</span>
+                                <span>${moment().format('lll')}</span>
                             </footer>
                         </div>
                     </td>
