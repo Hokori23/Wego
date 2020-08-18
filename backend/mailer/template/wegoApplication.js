@@ -19,10 +19,13 @@ const translateKeys = (obj) => {
 		site: "个人网站",
 		time: "提交时间"
 	};
-	Object.keys(obj).map((key) => {
+	Object.keys(dictionary).map((key) => {
 		obj[dictionary[key]] = obj[key];
 		delete obj[key];
-	});
+    });
+
+    // 删除多余字段
+    delete obj.status
 };
 
 /**
@@ -50,6 +53,8 @@ module.exports = ({ title = "", info = {}, detailURL = "#" }) => {
                             outline: 0;
                             background-color: transparent;
                             margin: 0 3px;
+                            color: inherit !important;
+                            font-weight: inherit !important;
                         }
                 
                         a:before {
@@ -60,7 +65,7 @@ module.exports = ({ title = "", info = {}, detailURL = "#" }) => {
                             width: 100%;
                             height: 1px;
                             content: ' ';
-                            background-color: #536dfe;
+                            background-color: inherit !important;
                             -webkit-transition: all .2s;
                             transition: all .2s;
                             -webkit-transform: scaleX(0);
@@ -78,7 +83,8 @@ module.exports = ({ title = "", info = {}, detailURL = "#" }) => {
                             font-size:16px;
                             background-image: radial-gradient(circle at 100% 150%, #f8f8f8 24%, #fff 24%, #fff 28%, #f8f8f8 28%, #f8f8f8 36%, #fff 36%, #fff 40%, transparent 40%, transparent), radial-gradient(circle at 0 150%, #f8f8f8 24%, #fff 24%, #fff 28%, #f8f8f8 28%, #f8f8f8 36%, #fff 36%, #fff 40%, transparent 40%, transparent), radial-gradient(circle at 50% 100%, #fff 10%, #f8f8f8 10%, #f8f8f8 23%, #fff 23%, #fff 30%, #f8f8f8 30%, #f8f8f8 43%, #fff 43%, #fff 50%, #f8f8f8 50%, #f8f8f8 63%, #fff 63%, #fff 71%, transparent 71%, transparent), radial-gradient(circle at 100% 50%, #fff 5%, #f8f8f8 5%, #f8f8f8 15%, #fff 15%, #fff 20%, #f8f8f8 20%, #f8f8f8 29%, #fff 29%, #fff 34%, #f8f8f8 34%, #f8f8f8 44%, #fff 44%, #fff 49%, transparent 49%, transparent), radial-gradient(circle at 0 50%, #fff 5%, #f8f8f8 5%, #f8f8f8 15%, #fff 15%, #fff 20%, #f8f8f8 20%, #f8f8f8 29%, #fff 29%, #fff 34%, #f8f8f8 34%, #f8f8f8 44%, #fff 44%, #fff 49%, transparent 49%, transparent);
                             background-size: 100px 50px;
-                            width: 500px;
+                            width: 100%;
+                            max-width: 600px;
                             margin: 50px auto;
                             border-radius: 10px;
                             box-shadow: 0 1px 10px 2px rgba(0, 0, 0, .15);
@@ -91,6 +97,10 @@ module.exports = ({ title = "", info = {}, detailURL = "#" }) => {
                             padding: 20px 40px;
                         }
                 
+                        .mail__content p {
+                            color: #666666;
+                        }
+
                         .mail__footer {
                             padding: 10px 20px;
                         }
@@ -132,7 +142,7 @@ module.exports = ({ title = "", info = {}, detailURL = "#" }) => {
                 
                         .mail__block {
                             margin: 10px 0;
-                            padding: 10px 20px;
+                            padding: 30px;
                             border-radius: 5px;
                             font-weight: normal;
                         }
@@ -140,9 +150,13 @@ module.exports = ({ title = "", info = {}, detailURL = "#" }) => {
                         .mail__block li {
                             list-style: none;
                             line-height: calc(100% + 6px);
-                            margin-bottom: 4px;
+                            margin-bottom: 20px;
                             word-break: break-all;
                             border-bottom: 1px solid rgba(255, 255, 255, 0.7);
+                        }
+
+                        .mail__block li:last-child {
+                            margin-bottom: 0;
                         }
                 
                         .mail__block li span {

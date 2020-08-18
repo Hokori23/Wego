@@ -1,34 +1,10 @@
-const moment = require("moment");
-const isDef = (v) => {
-	return v !== undefined && v !== null;
-};
+
+const sad = require("../../static/sadBase64");
 
 /**
- * 字段转中文
- * @param { object } obj
+ * @description 传入一个含有title: string(用于标题), name: string(申请人名字)
  */
-const translateKeys = (obj) => {
-	const dictionary = {
-		name: "姓名",
-		school: "学院",
-		majority: "专业",
-		student_num: "学号",
-		email: "E-mail",
-		qq: "QQ",
-		bio: "简介",
-		site: "个人网站",
-		time: "提交时间"
-	};
-	Object.keys(obj).map((key) => {
-		obj[dictionary[key]] = obj[key];
-		delete obj[key];
-	});
-};
-
-/**
- * @description 传入一个含有title: string(用于标题), info: Array(用于遍历出申请人信息), detailURL: string(用于查看详情的URL)
- */
-module.exports = ({ title = "", info = {}, detailURL = "#" }) => {
+module.exports = ({ title = "", name = "" }) => {
 	let html = `
     <!DOCTYPE html>
     <html lang="zh">
@@ -89,6 +65,23 @@ module.exports = ({ title = "", info = {}, detailURL = "#" }) => {
                         .mail__header,
                         .mail__content {
                             padding: 20px 40px;
+                        }
+
+                        .mail__content {
+                            position: relative;
+                        }
+                
+                        .mail__content p {
+                            color: #666666;
+                        }
+
+                        .mail__content__img {
+                            position: absolute;
+                            right: 10px;
+                            bottom: 5px;
+                            border: 2px solid #666666;
+                            border-radius: 50%;
+                            max-width: 70px;
                         }
                 
                         .mail__footer {
@@ -152,18 +145,13 @@ module.exports = ({ title = "", info = {}, detailURL = "#" }) => {
                     </style>
                     <td>
                         <div class="mail__container">
-                            <header class="mail__header">Hello~ Wego社团有新人提交了一份入团申请！</header>
+                            <header class="mail__header">Wego社团</header>
                             <article class="mail__content">
-                                申请人信息：
-                                <ul class="mail__block">`;
-	translateKeys(info);
-	Object.keys(info).map((key) => {
-		const value = isDef(info[key]) ? info[key] : "";
-		html += `
-                                    <li><span>${key}: </span>${value}</li>`;
-	});
-	html += `
-                                </ul>
+                                你好，${name}：
+                                <p>很抱歉你的社团申请没有被通过QAQ</p>
+                                <p>但这不代表我们不认可你的能力哦，我们相信每个人都是一匹具有无限潜力的黑马！</p>
+                                <p>希望下一次见面可以遇到更好的你！</p>
+                                <img class="mail__content__img" src="${sad}" />
                             </article>
                             <footer class="mail__footer">
                                 <span>此信息由系统发送，请勿回复</span>
