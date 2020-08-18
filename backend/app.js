@@ -51,15 +51,21 @@ app.post("/wego/apply", async (req, res) => {
 		"qq"
 	];
 	// 判断参数合法标记
-	const flag = true;
+	let flag = true;
 	necessaryParams.map((key) => {
 		const params = req.body[key];
 		if (isUndef(params)) {
-			flag = true;
+			flag = false;
+		}
+	});
+	// 参数类型检测
+	Object.keys(req.body).map((key) => {
+		if (typeof req.body[key] !== "string") {
+			flag = false;
 		}
 	});
 	if (!flag) {
-		res.status(400).json({
+		res.status(200).json({
 			code: 1,
 			message: "参数错误"
 		});
@@ -91,27 +97,37 @@ app.post("/wego/apply", async (req, res) => {
 			message: "提交成功"
 		});
 	} catch (e) {
-		console.log(e)
+		console.log(e);
 		res.status(500).json(e);
 	}
 });
 
 /**
  * 申请处理
- * @param { boolean } stauts    申请结果
+ * @param { number } status    申请结果	0:未处理；1:已通过；2:未通过
  * @param { string } student_num    学号
  * @param { string } password   密码
  */
 app.post("/wego/handle", async (req, res) => {
-	// 必选参数检验
-	const necessaryParams = [status, student_num, password];
-	const flag = true;
-	necessaryParams.map((key) => {
-		const params = req.body[key];
-		if (isUndef(params)) {
-			flag = true;
+	// 必选参数检验和参数类型检测
+	const necessaryParams = {
+		status: "number",
+		student_num: "string",
+		password: "string"
+	};
+
+	// 判断参数合法标记
+	let flag = true;
+
+	Object.keys(necessaryParams).map((key) => {
+		if (
+			isUndef(req.body[key]) ||
+			typeof req.body[key] !== necessaryParams[key]
+		) {
+			flag = false;
 		}
 	});
+
 	if (!flag) {
 		res.status(400).json({
 			code: 1,
@@ -119,14 +135,15 @@ app.post("/wego/handle", async (req, res) => {
 		});
 		return;
 	}
-    const { student_num, password } = req.body;
-    
+	const { status, password } = req.body;
+
 	// 固定密码
 	if (password !== "wego2020") {
 		res.status(200).json({
 			code: 2,
 			message: "密码错误"
 		});
+		return;
 	}
 
 	// 进行业务处理
@@ -137,26 +154,49 @@ app.post("/wego/handle", async (req, res) => {
 				code: 3,
 				message: "该申请记录不存在"
 			});
+			return;
 		}
+
+		if (mayInfo[0].status !== 0) {
+			if (status === 0) {
+				res.status(200).json({
+					code: 4,
+					message: "该申请记录未审批，请检查传入status"
+				});
+			}
+			res.status(200).json({
+				code: 5,
+				message: "该申请记录已审批，请勿重复操作"
+			});
+			return;
+		}
+
 		await action.update(req.body);
 
 		// 发送给申请人邮件
-		mailer.send(
-			{
-				title: "Wego社团申请结果",
-				to: {
-					name: mayInfo[0].name,
-					address: mayInfo[0].email
+		if (status !== 0) {
+			mailer.send(
+				{
+					title: "Wego社团申请结果反馈",
+					name: mayInfo[0].name
 				},
-				detailURL: "#"
-			},
-			req.body.status ? wegoSuccess : wegoFailed
-		);
+				{
+					to: {
+						name: mayInfo[0].name,
+						address: mayInfo[0].email
+					}
+				},
+				status === 1 ? wegoSuccess : wegoFailed,
+				0
+			);
+		}
+
 		res.status(200).json({
 			code: 0,
-			message: "提交成功"
+			message: "处理成功"
 		});
 	} catch (e) {
+		console.log(e);
 		res.status(500).json(e);
 	}
 });
