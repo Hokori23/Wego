@@ -38,7 +38,7 @@ app.get("/wego/get-schoollist", (req, res) => {
 });
 
 /**
- * 申请社团接口
+ * 申请社团
  */
 app.post("/wego/apply", async (req, res) => {
 	// 必选参数检验
@@ -200,4 +200,28 @@ app.post("/wego/handle", async (req, res) => {
 		res.status(500).json(e);
 	}
 });
+
+/**
+ * 获取申请列表
+ */
+app.get("/wego/get-applicationlist", async (req, res) => {
+	const result = await action.queryAll();
+	if (!result.length) {
+		res.status(200).json({
+			code: 0,
+			message: "暂无申请"
+		});
+		return;
+	}
+	result.forEach((v)=>{
+		v.submit_at = moment(v.submit_at).fromNow()
+		return v
+	})
+	res.status(200).json({
+		code: 0,
+		data: result,
+		message: "查询成功"
+	});
+});
+
 app.listen(port, () => console.log(`Example APP listening on port ${port}!`));
