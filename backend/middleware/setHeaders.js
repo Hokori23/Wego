@@ -6,8 +6,8 @@ const setHeaders = (req, res, next) => {
 		"Access-Control-Allow-Methods": "*",
 		"Access-Control-Allow-Headers": "*"
 	});
-	if (req.method.toLowerCase() == "options") {
-		res.status(200).end(); // 让options尝试请求快速结束
+	if (req.method === "OPTIONS") {
+		res.status(200).end(); // 让options预请求快速结束
 	} else {
 		next();
 	}

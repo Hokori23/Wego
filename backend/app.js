@@ -1,15 +1,22 @@
+// Dependencies
 const express = require("express");
-const app = express();
 const moment = require("moment");
 const fs = require("fs");
-const port = 8888;
-const { setHeaders } = require("./middleware");
+
+// 模块
 const mailer = require("./mailer");
 const action = require("./action");
+
+// 中间件
+const { setHeaders, xssFilter } = require("./middleware");
+
 // 邮件模板
 const wegoApplication = require("./mailer/template/wegoApplication");
 const wegoSuccess = require("./mailer/template/wegoSuccess");
 const wegoFailed = require("./mailer/template/wegoFailed");
+
+const app = express();
+const port = 8888;
 
 const isUndef = (v) => {
 	return v === undefined || v === null;
@@ -24,13 +31,15 @@ app.use(express.json());
 
 // 设置响应头
 app.use(setHeaders);
+// xss攻击过滤
+app.use(xssFilter);
 
 /**
  * 获取学院专业信息
  */
 app.get("/wego/get-schoollist", (req, res) => {
 	try {
-		const data = JSON.parse(fs.readFileSync("./public/schoollist.json"));
+		const data = JSON.parse(fs.readFileSync("./static/schoollist.json"));
 		res.status(200).json(data);
 	} catch (e) {
 		res.status(500).end();
@@ -52,14 +61,14 @@ app.post("/wego/apply", async (req, res) => {
 	];
 	// 判断参数合法标记
 	let flag = true;
-	necessaryParams.map((key) => {
+	necessaryParams.forEach((key) => {
 		const params = req.body[key];
 		if (isUndef(params)) {
 			flag = false;
 		}
 	});
 	// 参数类型检测
-	Object.keys(req.body).map((key) => {
+	Object.keys(req.body).forEach((key) => {
 		if (typeof req.body[key] !== "string") {
 			flag = false;
 		}
@@ -119,7 +128,7 @@ app.post("/wego/handle", async (req, res) => {
 	// 判断参数合法标记
 	let flag = true;
 
-	Object.keys(necessaryParams).map((key) => {
+	Object.keys(necessaryParams).forEach((key) => {
 		if (
 			isUndef(req.body[key]) ||
 			typeof req.body[key] !== necessaryParams[key]
@@ -213,10 +222,10 @@ app.get("/wego/get-applicationlist", async (req, res) => {
 		});
 		return;
 	}
-	result.forEach((v)=>{
-		v.submit_at = moment(v.submit_at).fromNow()
-		return v
-	})
+	result.forEach((v) => {
+		v.submit_at = moment(v.submit_at).fromNow();
+		return v;
+	});
 	res.status(200).json({
 		code: 0,
 		data: result,

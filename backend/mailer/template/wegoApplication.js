@@ -23,7 +23,7 @@ const translateKeys = (obj) => {
 		bio: "简介",
 		site: "个人网站"
 	};
-	Object.keys(dictionary).map((key) => {
+	Object.keys(dictionary).forEach((key) => {
 		obj[dictionary[key]] = obj[key];
 		delete obj[key];
 	});
@@ -176,7 +176,7 @@ module.exports = ({ title = "", info = {}, detailURL }) => {
                                 申请人信息：
                                 <ul class="mail__block">`;
 	translateKeys(info);
-	Object.keys(info).map((key) => {
+	Object.keys(info).forEach((key) => {
 		const value = isDef(info[key]) ? info[key] : "";
 		html += `
                                     <li><b>${key}: </b>${value}</li>`;

@@ -1,2 +1,3 @@
 const setHeaders = require("./setHeaders");
-module.exports = { setHeaders };
+const xssFilter = require("./xssFilter");
+module.exports = { setHeaders, xssFilter };
