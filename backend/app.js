@@ -16,7 +16,7 @@ const wegoSuccess = require("./mailer/template/wegoSuccess");
 const wegoFailed = require("./mailer/template/wegoFailed");
 
 const app = express();
-const port = 8888;
+const port = 8002;
 
 const isUndef = (v) => {
 	return v === undefined || v === null;
@@ -138,7 +138,7 @@ app.post("/wego/handle", async (req, res) => {
 	});
 
 	if (!flag) {
-		res.status(400).json({
+		res.status(200).json({
 			code: 1,
 			message: "参数错误"
 		});
