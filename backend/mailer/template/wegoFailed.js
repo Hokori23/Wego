@@ -151,7 +151,7 @@ module.exports = ({ title = "", name = "" }) => {
                     </style>
                     <td>
                         <div class="mail__container">
-                            <header class="mail__header">Wego社团</header>
+                            <header class="mail__header">天津工业大学Wego社团</header>
                             <article class="mail__content">
                                 你好，${name}：
                                 <p>很抱歉你的社团申请没有被通过QAQ</p>
