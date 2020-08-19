@@ -5,6 +5,11 @@ const xss = require("xss");
  */
 const xssParamsFilter = (obj) => {
 	Object.keys(obj).forEach((key) => {
+		const paramType = typeof obj[key];
+		if (paramType === "number") {
+			obj[key] = Number(xss(obj[key]));
+			return;
+		}
 		obj[key] = xss(obj[key]);
 	});
 };
