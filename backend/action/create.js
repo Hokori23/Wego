@@ -2,7 +2,7 @@ const DB = require("../database");
 module.exports = ({
 	name,
 	school,
-	majority,
+	major,
 	student_num,
 	email,
 	qq,
@@ -15,7 +15,7 @@ module.exports = ({
 			undefined, // id 自增字段
 			name,
 			school,
-			majority,
+			major,
 			student_num,
 			email,
 			qq,
@@ -36,7 +36,7 @@ module.exports = ({
 			resolve({
 				name,
 				school,
-				majority,
+				major,
 				student_num,
 				email,
 				qq,

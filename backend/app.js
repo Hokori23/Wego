@@ -40,7 +40,7 @@ app.use(xssFilter);
 app.get("/wego/get-schoollist", (req, res) => {
 	try {
 		const data = JSON.parse(fs.readFileSync("./static/schoollist.json"));
-		res.status(200).json(data);
+		res.status(200).json({ code: 0, data, message: "查询成功" });
 	} catch (e) {
 		res.status(500).end();
 	}
@@ -54,7 +54,7 @@ app.post("/wego/apply", async (req, res) => {
 	const necessaryParams = [
 		"name",
 		"school",
-		"majority",
+		"major",
 		"student_num",
 		"email",
 		"qq"
