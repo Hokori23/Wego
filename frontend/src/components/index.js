@@ -1,4 +1,5 @@
-import ApplicationItem from "./ApplicationItem";
+import Home from "./Home";
+import AdminPage from "./AdminPage";
 
-export { ApplicationItem };
-export default { ApplicationItem };
+export { AdminPage, Home };
+export default { AdminPage, Home };

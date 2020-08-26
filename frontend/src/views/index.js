@@ -1,6 +1,7 @@
 import Home from "./Home";
-
-export { Home };
+import AdminPage from "./AdminPage";
+export { AdminPage, Home };
 export default {
+	AdminPage,
 	Home
 };
