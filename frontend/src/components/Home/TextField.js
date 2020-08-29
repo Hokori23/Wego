@@ -13,11 +13,15 @@ const useStyles = makeStyles((theme) => ({
 export default function CustomTextField(props) {
     const classes = useStyles();
 
-    let { label, value, name, multiline } = props;
-    
+    let { label, value, name, multiline, isError } = props;
 	const isRequired = /\*$/.test(label);
 	function handleTextFieldChange(e) {
 		props.onTextFieldChange(e.target.value, name, isRequired);
+	}
+	const placeholderText = {
+		site: 'http(s)://',
+		email: 'Example@site.com',
+		bio: '简单介绍下你自己就好啦'
 	}
 	return (
 		<TextField
@@ -25,8 +29,11 @@ export default function CustomTextField(props) {
 			value={value}
 			onChange={handleTextFieldChange}
             multiline={multiline}
-            rows={3}
+			rows={3}
+			error={isError}
 			className={classes.formControl}
+			helperText={isError ? `请输入${label}` : ``}
+			placeholder={placeholderText[name]}
 		></TextField>
 	);
 }
