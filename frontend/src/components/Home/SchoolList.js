@@ -5,17 +5,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-import { makeStyles } from "@material-ui/core/styles";
-
-const useStyles = makeStyles((theme) => ({
-	formControl: {
-		marginBottom: theme.spacing(1),
-		width: 200
-	},
-}));
 
 export default function SchoolList(props) {
-	const classes = useStyles();
 	function handleSchoolChange(e) {
 		props.onSchoolChange(e.target.value);
 	}
@@ -34,11 +25,14 @@ export default function SchoolList(props) {
 			</MenuItem>
 		))
 	);
+	// 解构props
+	const { error, className, school } = props;
+	
 	return (
-		<FormControl error={props.isError} className={classes.formControl}>
+		<FormControl error={error} className={className}>
 			<InputLabel id="selector__school">学院*</InputLabel>
 			<Select
-				value={props.school}
+				value={school}
 				labelId="selector__school"
 				onChange={handleSchoolChange}
 			>
@@ -48,7 +42,7 @@ export default function SchoolList(props) {
 					</MenuItem>
 				)}
 			</Select>
-			{props.isError && <FormHelperText>请选择学院</FormHelperText>}
+			{error && <FormHelperText>请选择学院</FormHelperText>}
 		</FormControl>
 	);
 }

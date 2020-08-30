@@ -5,17 +5,9 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles((theme) => ({
-	formControl: {
-		marginBottom: theme.spacing(1),
-		width: 200
-	},
-}));
 
 export default function MajorList(props) {
-	const classes = useStyles();
 	function handleMajorChange(e) {
 		props.onMajorChange(e.target.value);
 	}
@@ -23,7 +15,7 @@ export default function MajorList(props) {
     /**
      * Paint
      */
-	const { school, data } = props;
+	const { school, data, className, error, major } = props;
 	let majorList;
 	for (let i = 0; i < data.length; i++) {
 		if (data[i]["school"] === school) {
@@ -42,17 +34,17 @@ export default function MajorList(props) {
 		}
 	}
 	return (
-		<FormControl error={props.isError} className={classes.formControl}>
+		<FormControl error={error} className={className}>
 			<InputLabel id="selector__major">专业*</InputLabel>
 			<Select
-				value={props.major}
+				value={major}
 				labelId="selector__major"
 				onChange={handleMajorChange}
-				disabled={!props.school}
+				disabled={!school}
 			>
 				{majorList || null}
 			</Select>
-			{props.isError && <FormHelperText>请选择专业</FormHelperText>}
+			{error && <FormHelperText>请选择专业</FormHelperText>}
 		</FormControl>
 	);
 }
