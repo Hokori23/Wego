@@ -3,6 +3,7 @@ import React, { useState, useEffect, Fragment } from "react";
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Paper from "@material-ui/core/Paper";
+import { Portal } from "@material-ui/core";
 
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { makeStyles } from "@material-ui/core/styles";
@@ -11,7 +12,6 @@ import { useTheme } from '@material-ui/core/styles';
 import { Home as HOME } from "../components";
 import api from "../api";
 import func from "../func";
-import { Portal } from "@material-ui/core";
 
 
 
@@ -294,7 +294,7 @@ export default function Home() {
 			[`${name}_error`]: error
 		}));
 	}
-	function isValidate() {
+	function isValid() {
 		let flag = true;
 		// 检查必填字段是否为空
 		for(let i in newApply) {
@@ -321,7 +321,7 @@ export default function Home() {
 		}))
 	}
 	async function handleApply() {
-		if (!isValidate())  return;
+		if (!isValid())  return;
 		try {
 			const payload = JSON.parse(JSON.stringify(newApply));
 			payload.site = `https://${payload.site}/`;
