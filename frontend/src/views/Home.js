@@ -179,8 +179,7 @@ export default function Home() {
 		}
 	].map((item, index) => {
 		const { label, name, value, multiline, error, errno } = item;
-		let node;
-		index === 1 ? node = (
+		let node = index === 1 ? (
 		<Fragment key={name}>
 			<div className="Home__content__row">
 				<SchoolList
@@ -215,7 +214,7 @@ export default function Home() {
 			</div>
 		</Fragment>
 		) :
-		node = (
+		(
 			<div className="Home__content__row" key={name}>
 				<TextField
 					label={label}
