@@ -40,7 +40,7 @@ app.use(xssFilter);
 app.get("/wego/get-schoollist", (req, res) => {
 	try {
 		const data = JSON.parse(fs.readFileSync("./static/schoollist.json"));
-		res.status(200).json(data);
+		res.status(200).json({ code: 0, data, message: "查询成功" });
 	} catch (e) {
 		res.status(500).end();
 	}
@@ -54,7 +54,7 @@ app.post("/wego/apply", async (req, res) => {
 	const necessaryParams = [
 		"name",
 		"school",
-		"majority",
+		"major",
 		"student_num",
 		"email",
 		"qq"
@@ -95,7 +95,7 @@ app.post("/wego/apply", async (req, res) => {
 		const info = await action.create(req.body);
 		mailer.broadcast(
 			{
-				title: "Wego社团申请邮件",
+				title: "天津工业大学Wego社团申请邮件",
 				info,
 				detailURL: "#"
 			},
@@ -186,7 +186,7 @@ app.post("/wego/handle", async (req, res) => {
 		if (status !== 0) {
 			mailer.send(
 				{
-					title: "Wego社团申请结果反馈",
+					title: "天津工业大学Wego社团申请结果反馈",
 					name: mayInfo[0].name
 				},
 				{

@@ -16,7 +16,7 @@ const translateKeys = (obj) => {
 	const dictionary = {
 		name: "姓名",
 		school: "学院",
-		majority: "专业",
+		major: "专业",
 		student_num: "学号",
 		email: "E-mail",
 		qq: "QQ",
